@@ -9,5 +9,8 @@ router.get('/Sing-up', userController.SingUp);
 router.get('/Sing-in', userController.SignIn);
 
 router.post('/create', userController.Create);
+router.post('/CreateSession', userController.CreateSession);
+
+router.get('/Sing-out',userController.Singout);
 
 module.exports = router;
