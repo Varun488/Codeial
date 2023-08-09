@@ -9,6 +9,9 @@ module.exports.users = function(req,res){
 
 // For user sign in
 module.exports.SignIn = function(req,res){
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
     return res.render('Sign-in', {
         title: "Sing-in"
     });
@@ -16,6 +19,11 @@ module.exports.SignIn = function(req,res){
 
 // for user sign up
 module.exports.SingUp = function(req,res){
+
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
+
     return res.render('sign-up', {
         title: "Sing-up"
     })
@@ -45,5 +53,14 @@ module.exports.Create = async (req, res) => {
 
 // for user sign-in 
 module.exports.CreateSession = function(req,res){
-    //TODO
+    return res.redirect('/');
+}
+// for sing-out
+module.exports.destroySession = function(req, res){
+    req.logout(function(err){
+        if (err) {
+            console.log(err); // Handle the error appropriately
+        }
+    return res.redirect('/');
+    });
 }

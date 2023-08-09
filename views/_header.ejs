@@ -1,3 +1,12 @@
 <header>
-    Page Header
+    <h1>codeial</h1>
+    <ul style="list-style-type: none; ">
+        <% if(locals.user) { %>
+            <li><%= user.Name%></li>
+            <li><a href="/users/sing-out">Sing Out</a></li>
+        <% } else {%>
+            <li><a href="/users/Sing-in">Sing In</a></li>
+            <li><a href="/users/Sing-up">sing-up</a></li>
+        <% } %>
+    </ul>
 </header>
