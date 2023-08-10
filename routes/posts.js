@@ -6,4 +6,6 @@ console.log('router is loaded')
 
 router.get('/post', postController.post);
 
+router.post('/create', postController.createpost);
+
 module.exports = router;
