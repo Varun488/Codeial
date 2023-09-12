@@ -5,7 +5,8 @@ const passport = require('passport')
 
 console.log('router is loaded')
 
-router.get('/profile', passport.checkAuthentication ,userController.users);
+router.get('/profile/:id', passport.checkAuthentication ,userController.users);
+router.post('/update/:id', passport.checkAuthentication, userController.Update);
 router.get('/Sing-up', userController.SingUp);
 router.get('/Sing-in', userController.SignIn);
 

@@ -1,11 +1,32 @@
 const User = require('../models/user')
 
-module.exports.users = function(req,res){
-    return res.render('user_profile', {
-        title:"user profile"
-    });
+module.exports.users = async function(req, res) {
+    try {
+        const user = await User.findById(req.params.id);
+        return res.render('user_profile', {
+            title: "user profile",
+            profile_user: user
+        });
+    } catch (err) {
+        console.error(err);
+        // Handle the error as needed
+        return res.status(500).send('Internal Server Error');
+    }
 };
 
+module.exports.Update = async function(req,res){
+        try{
+            if(req.user.id == req.params.id){
+               const user = await User.findByIdAndUpdate(req.params.id, req.body);
+               return res.redirect('back');
+            }else{
+                return res.status(401).send('Unauthorized');
+            }
+        }catch(err){
+              console.error(err);
+              return res.status(500).send('Internal Server Error');
+        }
+}
 
 // For user sign in
 module.exports.SignIn = function(req,res){

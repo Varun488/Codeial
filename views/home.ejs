@@ -1,40 +1,28 @@
-
-         <h1> Codeial / <%= title %> </h1>
-        <section id="feed-posts">
-            <h4>Posts</h4>
-            <% if(locals.user) { %>
-            <form action="/post/create" id="new-post-form" method="POST">
-                <textarea name="content" cols="30" rows="3" placeholder="Enter what's in your mind"></textarea>
-                <input type="submit" value="post">
-            </form>
-             <%}%>
-            <div id="posts-list-container">
-                <ul style="text-decoration: none;">
-                    <% for(post of posts) {%> 
-                        <li>
-                            <%= post.user.Name %><br>
-                            <%= post.content %>
-                            <div class="post-comment">
-                                <% if(locals.user){%> 
-                                    <form action="/comments/create" method="POST">
-                                        <input type="text" name="content" placeholder="add your comment here">
-                                        <input type="hidden" name="post" value="<%= post.id%>">
-                                        <input type="submit" value="Add Comment">
-                                    </form>
-                                <%}%>
-                                <div class="post-comment-list">
-                                    <ul id="post-comments-<%= post.id %>">
-                                        <% for(comment of post.comments) {%> 
-                                            <li>
-                                                <%= comment.content %><br>
-                                                <%= post.content %>
-                                            </li>
-                                            <%}%>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                    <% }%>
-                </ul>
+        <link rel="stylesheet" href="/css/home.css">
+        <div id="home-container">
+            <section id="feed-posts">
+                <h4>Posts</h4>
+                <% if(locals.user) { %>
+                <form action="/post/create" id="new-post-form" method="POST">
+                    <textarea name="content" cols="30" rows="3" placeholder="Enter what's in your mind"></textarea>
+                    <input type="submit" value="post">
+                </form>
+                 <%}%>
+                <div id="posts-list-container">
+                    <ul style="text-decoration: none;">
+                        <% for(post of posts) {%> 
+                           <%- include('_posts') -%>
+                        <% }%>
+                    </ul>
+                </div>
+            </section>
+            <section id="user-friends">
+                <h4>Friends</h4>
+                <div id="friends-list">
+                <% for( u of all_users) {%>
+                    <a href="/users/profile/<%= u.id%>"><%= u.Name %></a><br>
+                <% } %>
             </div>
-        </section>
+            </section>
+        </div>
+        
